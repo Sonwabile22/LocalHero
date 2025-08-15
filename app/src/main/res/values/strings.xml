@@ -66,9 +66,9 @@
     <string name="success">Success</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
-<<<<<<< HEAD
-</resources>
-=======
+
+
+
     <string name="send_icon">➤</string>
 </resources>
->>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
+
