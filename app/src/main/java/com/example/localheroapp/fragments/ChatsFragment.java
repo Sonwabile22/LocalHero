@@ -5,29 +5,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-<<<<<<< HEAD
-=======
+
 import android.widget.Toast;
->>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-<<<<<<< HEAD
-=======
+<
 import androidx.fragment.app.FragmentTransaction;
->>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.localheroapp.MainActivity;
 import com.example.localheroapp.R;
-<<<<<<< HEAD
+
 import com.example.localheroapp.models.User;
 
 public class ChatsFragment extends Fragment {
-=======
+
 import com.example.localheroapp.adapters.ChatsAdapter;
 import com.example.localheroapp.models.Chat;
 import com.example.localheroapp.models.User;
@@ -45,7 +43,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class ChatsFragment extends Fragment implements ChatsAdapter.OnChatClickListener {
->>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
+
     private RecyclerView chatsRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView noChatsText;
@@ -60,7 +58,7 @@ public class ChatsFragment extends Fragment implements ChatsAdapter.OnChatClickL
     private LoadingStateManager loadingManager;
     private long lastRefreshTime = 0;
     private static final long REFRESH_COOLDOWN_MS = 2000; // 2 second cooldown between refreshes
->>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,14 +73,12 @@ public class ChatsFragment extends Fragment implements ChatsAdapter.OnChatClickL
         if (mainActivity != null) {
             currentUser = mainActivity.getCurrentUser();
         }
-        
-<<<<<<< HEAD
-=======
+
         // Initialize Firestore and LoadingStateManager
         db = FirebaseFirestore.getInstance();
         loadingManager = LoadingStateManager.getInstance();
         
->>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
+
         initViews(view);
         setupRecyclerView();
         setupSwipeRefresh();
@@ -97,7 +93,7 @@ public class ChatsFragment extends Fragment implements ChatsAdapter.OnChatClickL
 
     private void setupRecyclerView() {
         chatsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-<<<<<<< HEAD
+
         // TODO: Set adapter for chats
     }
 
@@ -110,7 +106,7 @@ public class ChatsFragment extends Fragment implements ChatsAdapter.OnChatClickL
             // TODO: Load chats based on user role and ward
             // This would involve querying Firestore for chat conversations
             showNoChatsMessage();
-=======
+
         chatsAdapter = new ChatsAdapter(this);
         chatsRecyclerView.setAdapter(chatsAdapter);
     }
@@ -224,10 +220,10 @@ public class ChatsFragment extends Fragment implements ChatsAdapter.OnChatClickL
     }
 
     private void refreshData() {
-<<<<<<< HEAD
+
         loadChats();
         swipeRefreshLayout.setRefreshing(false);
-=======
+
         // Only refresh if not already loading
         if (!loadingManager.isLoading("chats_refresh")) {
             loadChats();
