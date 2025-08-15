@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">LocalHeroApp</string>
+    
+    <!-- Auth -->
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="full_name">Full Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="address">Address</string>
+    <string name="municipality">Municipality</string>
+    <string name="ward">Ward</string>
+    <string name="use_current_location">Use Current Location</string>
+    <string name="complete_profile">Complete Profile</string>
+    <string name="profile_setup">Profile Setup</string>
+    
+    <!-- Navigation -->
+    <string name="home">Home</string>
+    <string name="issues">Issues</string>
+    <string name="chats">Chats</string>
+    <string name="profile">Profile</string>
+    <string name="report_issue">Report Issue</string>
+    
+    <!-- Home -->
+    <string name="welcome_message">Welcome to Local Hero</string>
+    <string name="quick_actions">Quick Actions</string>
+    <string name="view_map">View Map</string>
+    <string name="recent_issues">Recent Issues</string>
+    <string name="community_stats">Community Stats</string>
+    
+    <!-- Issues -->
+    <string name="all_issues">All Issues</string>
+    <string name="open_issues">Open Issues</string>
+    <string name="in_progress">In Progress</string>
+    <string name="resolved">Resolved</string>
+    <string name="no_issues_found">No issues found</string>
+    
+    <!-- Chats -->
+    <string name="ward_group">Ward Group</string>
+    <string name="private_chats">Private Chats</string>
+    <string name="issue_chats">Issue Chats</string>
+    <string name="no_chats_available">No chats available</string>
+    
+    <!-- Profile -->
+    <string name="edit_profile">Edit Profile</string>
+    <string name="logout">Logout</string>
+    <string name="role">Role</string>
+    
+    <!-- Report Issue -->
+    <string name="issue_details">Issue Details</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="category">Category</string>
+    <string name="priority">Priority</string>
+    <string name="location">Location</string>
+    <string name="photo">Photo</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="submit">Submit</string>
+    <string name="status_text">Status text will appear here</string>
+    
+    <!-- Common -->
+    <string name="loading">Loading...</string>
+    <string name="error">Error</string>
+    <string name="success">Success</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="send_icon">➤</string>
+</resources>

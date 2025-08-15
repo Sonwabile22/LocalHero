@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@color/surface"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Community Issues"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="View and track issues in your ward"
+                android:textSize="16sp"
+                android:textColor="@color/text_secondary" />
+
+        </LinearLayout>
+
+        <!-- Filter Options -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:background="@color/surface">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/allIssuesChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All"
+                android:checked="true"
+                android:layout_marginEnd="8dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/openIssuesChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open"
+                android:layout_marginEnd="8dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/inProgressChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="In Progress"
+                android:layout_marginEnd="8dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/resolvedChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Resolved"
+                style="@style/Widget.MaterialComponents.Chip.Choice" />
+
+        </LinearLayout>
+
+        <!-- Issues List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/issuesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:clipToPadding="false" />
+
+        <!-- No Issues Message -->
+        <TextView
+            android:id="@+id/noIssuesText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No issues found in your ward"
+            android:textSize="18sp"
+            android:textColor="@color/text_secondary"
+            android:gravity="center"
+            android:padding="64dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
