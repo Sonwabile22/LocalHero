@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "211121101353",
+    "project_id": "local-hero-a7eda",
+    "storage_bucket": "local-hero-a7eda.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211121101353:android:8871a9758994ee933d9a38",
+        "android_client_info": {
+          "package_name": "com.example.localheroapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8QRDw3vrHpAQx8RtZ68LmnVmx1YFDVkk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        },
+        "firestore_service": {
+          "firestore_url": "https://firestore.googleapis.com/v1/projects/local-hero-a7eda/databases/(default)"
+        },
+        "storage_service": {
+          "storage_bucket": "local-hero-a7eda.firebasestorage.app"
+        },
+        "auth_service": {
+          "auth_domain": "local-hero-a7eda.firebaseapp.com"
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
