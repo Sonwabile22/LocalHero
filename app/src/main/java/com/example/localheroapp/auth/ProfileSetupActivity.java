@@ -118,6 +118,26 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 if (position > 0) {
                     String selectedMunicipality = parent.getItemAtPosition(position).toString();
                     loadWardsForMunicipality(selectedMunicipality);
+<<<<<<< HEAD
+=======
+                } else {
+                    selectedMunicipalityId = null;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+        });
+        
+        wardSpinner.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0 && availableWards != null && position <= availableWards.size()) {
+                    Ward selectedWard = availableWards.get(position - 1);
+                    selectedWardId = selectedWard.getWardId();
+                } else {
+                    selectedWardId = null;
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
                 }
             }
 
@@ -325,10 +345,163 @@ public class ProfileSetupActivity extends AppCompatActivity {
     }
 
     private void addUserToWardGroup(String userId, Ward ward) {
+<<<<<<< HEAD
         // This would add the user to the ward group chat
         // Implementation depends on your chat system
         // For now, we'll just log it
         System.out.println("User " + userId + " should be added to ward group: " + ward.getWardName());
+=======
+        // Create or find the ward group chat
+        String wardGroupId = "ward_group_" + ward.getWardId();
+        
+        // First, check if ward group exists
+        db.collection("ward_groups").document(wardGroupId)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult().exists()) {
+                            // Group exists, add user to it
+                            addUserToExistingWardGroup(userId, wardGroupId, ward);
+                        } else {
+                            // Group doesn't exist, create it
+                            createWardGroup(userId, wardGroupId, ward);
+                        }
+                    }
+                });
+    }
+    
+    private void createWardGroup(String userId, String wardGroupId, Ward ward) {
+        Map<String, Object> wardGroup = new HashMap<>();
+        wardGroup.put("groupId", wardGroupId);
+        wardGroup.put("groupName", ward.getWardName() + " Community Group");
+        wardGroup.put("wardId", ward.getWardId());
+        wardGroup.put("wardName", ward.getWardName());
+        wardGroup.put("municipalityId", selectedMunicipalityId);
+        wardGroup.put("municipalityName", ward.getMunicipalityName());
+        wardGroup.put("groupType", "WARD_GROUP");
+        wardGroup.put("createdAt", System.currentTimeMillis());
+        wardGroup.put("updatedAt", System.currentTimeMillis());
+        
+        // Initialize member lists
+        List<String> members = new ArrayList<>();
+        List<String> communityMembers = new ArrayList<>();
+        List<String> councillors = new ArrayList<>();
+        
+        members.add(userId);
+        communityMembers.add(userId); // Assuming new user is community member by default
+        
+        wardGroup.put("members", members);
+        wardGroup.put("communityMembers", communityMembers);
+        wardGroup.put("councillors", councillors);
+        
+        // Create the ward group
+        db.collection("ward_groups").document(wardGroupId)
+                .set(wardGroup)
+                .addOnSuccessListener(aVoid -> {
+                    System.out.println("Ward group created and user added: " + ward.getWardName());
+                    // Create corresponding chat document
+                    createWardGroupChat(wardGroupId, ward, members);
+                    // Also find and add any councillors for this ward
+                    findAndAddCouncillorsToGroup(wardGroupId, ward.getWardId());
+                })
+                .addOnFailureListener(e -> {
+                    System.err.println("Failed to create ward group: " + e.getMessage());
+                });
+    }
+    
+    private void addUserToExistingWardGroup(String userId, String wardGroupId, Ward ward) {
+        // Add user to existing ward group
+        db.collection("ward_groups").document(wardGroupId)
+                .update(
+                    "members", com.google.firebase.firestore.FieldValue.arrayUnion(userId),
+                    "communityMembers", com.google.firebase.firestore.FieldValue.arrayUnion(userId),
+                    "updatedAt", System.currentTimeMillis()
+                )
+                .addOnSuccessListener(aVoid -> {
+                    System.out.println("User added to existing ward group: " + ward.getWardName());
+                    // Also add to chat participants
+                    addUserToExistingWardGroupChat(userId, wardGroupId);
+                })
+                .addOnFailureListener(e -> {
+                    System.err.println("Failed to add user to ward group: " + e.getMessage());
+                });
+    }
+    
+    private void addUserToExistingWardGroupChat(String userId, String wardGroupId) {
+        // Add user to the corresponding chat document
+        db.collection("chats").document(wardGroupId)
+                .update(
+                    "participantIds", com.google.firebase.firestore.FieldValue.arrayUnion(userId),
+                    "updatedAt", System.currentTimeMillis()
+                )
+                .addOnSuccessListener(aVoid -> {
+                    System.out.println("User added to existing ward group chat");
+                })
+                .addOnFailureListener(e -> {
+                    System.err.println("Failed to add user to ward group chat: " + e.getMessage());
+                });
+    }
+    
+    private void createWardGroupChat(String wardGroupId, Ward ward, List<String> members) {
+        // Create a corresponding chat document for the ward group
+        Map<String, Object> chatData = new HashMap<>();
+        chatData.put("chatId", wardGroupId);
+        chatData.put("chatType", "WARD_GROUP");
+        chatData.put("title", ward.getWardName() + " Community Group");
+        chatData.put("description", "Community discussion for " + ward.getWardName());
+        chatData.put("wardId", ward.getWardId());
+        chatData.put("wardName", ward.getWardName());
+        chatData.put("municipalityId", selectedMunicipalityId);
+        chatData.put("municipalityName", ward.getMunicipalityName());
+        chatData.put("participantIds", members);
+        chatData.put("isActive", true);
+        chatData.put("createdAt", System.currentTimeMillis());
+        chatData.put("updatedAt", System.currentTimeMillis());
+        
+        // Create chat document
+        db.collection("chats").document(wardGroupId)
+                .set(chatData)
+                .addOnSuccessListener(aVoid -> {
+                    System.out.println("Ward group chat created: " + ward.getWardName());
+                })
+                .addOnFailureListener(e -> {
+                    System.err.println("Failed to create ward group chat: " + e.getMessage());
+                });
+    }
+    
+    private void findAndAddCouncillorsToGroup(String wardGroupId, String wardId) {
+        // Find councillors for this ward and add them to the group
+        db.collection("users")
+                .whereEqualTo("wardId", wardId)
+                .whereEqualTo("userRole", "COUNCILLOR")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<String> councillorIds = new ArrayList<>();
+                    for (com.google.firebase.firestore.QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                        councillorIds.add(doc.getId());
+                    }
+                    
+                    if (!councillorIds.isEmpty()) {
+                        // Add councillors to the ward group
+                        Map<String, Object> updates = new HashMap<>();
+                        updates.put("members", com.google.firebase.firestore.FieldValue.arrayUnion(councillorIds.toArray()));
+                        updates.put("councillors", com.google.firebase.firestore.FieldValue.arrayUnion(councillorIds.toArray()));
+                        updates.put("updatedAt", System.currentTimeMillis());
+                        
+                        db.collection("ward_groups").document(wardGroupId)
+                                .update(updates)
+                                .addOnSuccessListener(aVoid -> {
+                                    System.out.println("Councillors added to ward group: " + councillorIds.size());
+                                })
+                                .addOnFailureListener(e -> {
+                                    System.err.println("Failed to add councillors to group: " + e.getMessage());
+                                });
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    System.err.println("Failed to find councillors: " + e.getMessage());
+                });
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
     }
 
     private void setLoading(boolean loading) {

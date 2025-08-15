@@ -23,6 +23,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+<<<<<<< HEAD
+=======
+// Import the LoadingStateManager
+import com.example.localheroapp.utils.LoadingStateManager;
+
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
 public class LoginActivity extends AppCompatActivity {
     private EditText emailEditText, passwordEditText;
     private Button loginButton, registerButton;
@@ -31,6 +37,10 @@ public class LoginActivity extends AppCompatActivity {
     
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+<<<<<<< HEAD
+=======
+    private LoadingStateManager loadingManager;
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +51,10 @@ public class LoginActivity extends AppCompatActivity {
             // Initialize Firebase
             mAuth = FirebaseAuth.getInstance();
             db = FirebaseFirestore.getInstance();
+<<<<<<< HEAD
+=======
+            loadingManager = LoadingStateManager.getInstance();
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
             
             // Test Firebase connection
             if (mAuth == null) {
@@ -138,8 +152,14 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+<<<<<<< HEAD
         // Show progress
         setLoading(true);
+=======
+        // Show progress with centralized loading manager
+        loadingManager.showLoading("login_operation", progressBar, 
+            loginButton, registerButton, emailEditText, passwordEditText);
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
         
         // Add debug logging
         Toast.makeText(this, "Attempting login...", Toast.LENGTH_SHORT).show();
@@ -149,7 +169,11 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+<<<<<<< HEAD
                         setLoading(false);
+=======
+                        loadingManager.hideLoading("login_operation");
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
                         
                         if (task.isSuccessful()) {
                             // Login successful
@@ -169,6 +193,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+<<<<<<< HEAD
     private void setLoading(boolean loading) {
         progressBar.setVisibility(loading ? View.VISIBLE : View.GONE);
         loginButton.setEnabled(!loading);
@@ -176,6 +201,16 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText.setEnabled(!loading);
         passwordEditText.setEnabled(!loading);
     }
+=======
+    // Deprecated: Using LoadingStateManager instead
+    // private void setLoading(boolean loading) {
+    //     progressBar.setVisibility(loading ? View.VISIBLE : View.GONE);
+    //     loginButton.setEnabled(!loading);
+    //     registerButton.setEnabled(!loading);
+    //     emailEditText.setEnabled(!loading);
+    //     passwordEditText.setEnabled(!loading);
+    // }
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
 
     private void startMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -196,5 +231,17 @@ public class LoginActivity extends AppCompatActivity {
         // Check if user is signed in when activity starts
         checkCurrentUser();
     }
+<<<<<<< HEAD
+=======
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Clean up any pending loading operations
+        if (loadingManager != null) {
+            loadingManager.hideLoading("login_operation");
+        }
+    }
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
 }
 

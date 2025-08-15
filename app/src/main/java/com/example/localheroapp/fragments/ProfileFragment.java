@@ -16,13 +16,21 @@ import androidx.fragment.app.Fragment;
 import com.example.localheroapp.R;
 import com.example.localheroapp.MainActivity;
 import com.example.localheroapp.auth.LoginActivity;
+<<<<<<< HEAD
+=======
+import com.example.localheroapp.auth.ProfileSetupActivity;
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
 import com.example.localheroapp.models.User;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileFragment extends Fragment {
     private TextView fullNameText, emailText, phoneText, wardText, municipalityText, roleText;
+<<<<<<< HEAD
     private MaterialButton editProfileButton, logoutButton;
+=======
+    private MaterialButton editProfileButton, profileSetupButton, logoutButton;
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
     
     private User currentUser;
 
@@ -53,11 +61,19 @@ public class ProfileFragment extends Fragment {
         municipalityText = view.findViewById(R.id.municipalityText);
         roleText = view.findViewById(R.id.roleText);
         editProfileButton = view.findViewById(R.id.editProfileButton);
+<<<<<<< HEAD
+=======
+        profileSetupButton = view.findViewById(R.id.profileSetupButton);
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
         logoutButton = view.findViewById(R.id.logoutButton);
     }
 
     private void setupClickListeners() {
         editProfileButton.setOnClickListener(v -> editProfile());
+<<<<<<< HEAD
+=======
+        profileSetupButton.setOnClickListener(v -> openProfileSetup());
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
         logoutButton.setOnClickListener(v -> logout());
     }
 
@@ -109,6 +125,14 @@ public class ProfileFragment extends Fragment {
                 .setPositiveButton("OK", null)
                 .show();
     }
+<<<<<<< HEAD
+=======
+    
+    private void openProfileSetup() {
+        Intent intent = new Intent(getActivity(), ProfileSetupActivity.class);
+        startActivity(intent);
+    }
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
 
     private void logout() {
         FirebaseAuth.getInstance().signOut();

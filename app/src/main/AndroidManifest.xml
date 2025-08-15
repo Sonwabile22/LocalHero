@@ -60,6 +60,20 @@
             android:exported="false"
             android:theme="@style/Theme.LocalHeroApp.NoActionBar" />
 
+<<<<<<< HEAD
+=======
+        <!-- FileProvider for camera functionality -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.localheroapp.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
         <!-- Default theme for activities -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"

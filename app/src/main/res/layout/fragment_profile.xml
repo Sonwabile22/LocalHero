@@ -280,6 +280,21 @@
                     android:layout_marginBottom="12dp" />
 
                 <com.google.android.material.button.MaterialButton
+<<<<<<< HEAD
+=======
+                    android:id="@+id/profileSetupButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Profile Setup"
+                    android:textSize="16sp"
+                    app:icon="@drawable/ic_person"
+                    app:iconGravity="textStart"
+                    app:cornerRadius="24dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_marginBottom="12dp" />
+
+                <com.google.android.material.button.MaterialButton
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
                     android:id="@+id/logoutButton"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"

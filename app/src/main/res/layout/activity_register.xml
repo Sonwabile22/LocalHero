@@ -129,6 +129,61 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+<<<<<<< HEAD
+=======
+        <!-- User Role Selection -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Your Role"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="12dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp">
+
+            <RadioGroup
+                android:id="@+id/userRoleRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <RadioButton
+                    android:id="@+id/communityMemberRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Community Member"
+                    android:textSize="16sp"
+                    android:checked="true"
+                    android:layout_marginBottom="8dp" />
+
+                <RadioButton
+                    android:id="@+id/councillorRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Councillor"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp" />
+
+                <RadioButton
+                    android:id="@+id/municipalityWorkerRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Municipality Worker"
+                    android:textSize="16sp" />
+
+            </RadioGroup>
+
+        </com.google.android.material.card.MaterialCardView>
+
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
         <!-- Register Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/registerButton"

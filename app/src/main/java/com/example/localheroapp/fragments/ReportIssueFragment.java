@@ -21,6 +21,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+<<<<<<< HEAD
+=======
+import androidx.core.content.FileProvider;
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
 import androidx.fragment.app.Fragment;
 
 import com.example.localheroapp.MainActivity;
@@ -41,9 +45,24 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+=======
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+import java.util.Locale;
+
+import android.os.Environment;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
 
 public class ReportIssueFragment extends Fragment implements OnMapReadyCallback {
     private EditText titleEditText, descriptionEditText, addressEditText;
@@ -61,6 +80,10 @@ public class ReportIssueFragment extends Fragment implements OnMapReadyCallback 
     
     private Location currentLocation;
     private Uri selectedImageUri;
+<<<<<<< HEAD
+=======
+    private File photoFile;
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_LOCATION_PERMISSION = 2;
 
@@ -203,8 +226,49 @@ public class ReportIssueFragment extends Fragment implements OnMapReadyCallback 
 
     private void openCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+<<<<<<< HEAD
         if (takePictureIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+=======
+        // Create image file to save full-size photo
+        photoFile = createImageFile();
+        if (photoFile != null) {
+            selectedImageUri = FileProvider.getUriForFile(requireContext(),
+                    "com.example.localheroapp.fileprovider",
+                    photoFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, selectedImageUri);
+            
+            if (takePictureIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        } else {
+            // Fallback to thumbnail capture
+            if (takePictureIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+    }
+    
+    private File createImageFile() {
+        try {
+            // Create an image file name
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+            String imageFileName = "ISSUE_" + timeStamp + "_";
+            File storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            
+            if (storageDir != null && !storageDir.exists()) {
+                storageDir.mkdirs();
+            }
+            
+            return File.createTempFile(
+                    imageFileName,  /* prefix */
+                    ".jpg",         /* suffix */
+                    storageDir      /* directory */
+            );
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
         }
     }
 
@@ -213,6 +277,7 @@ public class ReportIssueFragment extends Fragment implements OnMapReadyCallback 
         super.onActivityResult(requestCode, resultCode, data);
         
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
+<<<<<<< HEAD
             if (data != null && data.getExtras() != null) {
                 // Handle captured image
                 // In a real app, you'd save the image and get its URI
@@ -220,6 +285,52 @@ public class ReportIssueFragment extends Fragment implements OnMapReadyCallback 
             }
         }
     }
+=======
+            if (selectedImageUri != null && photoFile != null && photoFile.exists()) {
+                // Full-size image was captured
+                displayCapturedImage(selectedImageUri);
+                Toast.makeText(getContext(), "Photo captured successfully", Toast.LENGTH_SHORT).show();
+                addPhotoButton.setText("Change Photo");
+            } else if (data != null && data.getExtras() != null) {
+                // Thumbnail image was captured
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                if (imageBitmap != null) {
+                    photoPreview.setImageBitmap(imageBitmap);
+                    photoPreview.setVisibility(View.VISIBLE);
+                    Toast.makeText(getContext(), "Photo captured successfully (thumbnail)", Toast.LENGTH_SHORT).show();
+                    addPhotoButton.setText("Change Photo");
+                }
+            }
+        }
+    }
+    
+    private void displayCapturedImage(Uri imageUri) {
+        try {
+            // Load and display the captured image
+            Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+            if (bitmap != null) {
+                // Scale bitmap to prevent out of memory errors
+                int targetWidth = photoPreview.getWidth();
+                int targetHeight = photoPreview.getHeight();
+                
+                if (targetWidth <= 0) targetWidth = 300;
+                if (targetHeight <= 0) targetHeight = 300;
+                
+                Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true);
+                photoPreview.setImageBitmap(scaledBitmap);
+                photoPreview.setVisibility(View.VISIBLE);
+                
+                if (bitmap != scaledBitmap) {
+                    bitmap.recycle();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Error displaying image", Toast.LENGTH_SHORT).show();
+        }
+    }
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
 
     private void submitIssue() {
         String title = titleEditText.getText().toString().trim();

@@ -7,6 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+<<<<<<< HEAD
+=======
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +19,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.localheroapp.R;
+<<<<<<< HEAD
+=======
+import com.example.localheroapp.models.User;
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,6 +39,10 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registerButton;
     private ProgressBar progressBar;
     private TextView loginText;
+<<<<<<< HEAD
+=======
+    private RadioGroup userRoleRadioGroup;
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
     
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -68,6 +81,10 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.registerButton);
         progressBar = findViewById(R.id.progressBar);
         loginText = findViewById(R.id.loginText);
+<<<<<<< HEAD
+=======
+        userRoleRadioGroup = findViewById(R.id.userRoleRadioGroup);
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
     }
 
     private void setupClickListeners() {
@@ -179,12 +196,22 @@ public class RegisterActivity extends AppCompatActivity {
     private void createUserProfile(String userId, String email, String fullName, String phone) {
         Toast.makeText(this, "Creating user profile...", Toast.LENGTH_SHORT).show();
         
+<<<<<<< HEAD
+=======
+        // Get selected user role
+        String selectedRole = getSelectedUserRole();
+        
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
         Map<String, Object> user = new HashMap<>();
         user.put("userId", userId);
         user.put("email", email);
         user.put("fullName", fullName);
         user.put("phoneNumber", phone);
+<<<<<<< HEAD
         user.put("userRole", "COMMUNITY_MEMBER");
+=======
+        user.put("userRole", selectedRole);
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
         user.put("isVerified", false);
         user.put("createdAt", System.currentTimeMillis());
         user.put("updatedAt", System.currentTimeMillis());
@@ -210,6 +237,24 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
+<<<<<<< HEAD
+=======
+    private String getSelectedUserRole() {
+        int selectedId = userRoleRadioGroup.getCheckedRadioButtonId();
+        
+        if (selectedId == R.id.communityMemberRadio) {
+            return "COMMUNITY_MEMBER";
+        } else if (selectedId == R.id.councillorRadio) {
+            return "COUNCILLOR";
+        } else if (selectedId == R.id.municipalityWorkerRadio) {
+            return "MUNICIPALITY_STAFF";
+        }
+        
+        // Default to community member if nothing is selected
+        return "COMMUNITY_MEMBER";
+    }
+    
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
     private void setLoading(boolean loading) {
         progressBar.setVisibility(loading ? View.VISIBLE : View.GONE);
         registerButton.setEnabled(!loading);
@@ -220,4 +265,7 @@ public class RegisterActivity extends AppCompatActivity {
         phoneEditText.setEnabled(!loading);
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b

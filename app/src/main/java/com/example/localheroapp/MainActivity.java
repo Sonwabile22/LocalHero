@@ -19,6 +19,10 @@ import com.example.localheroapp.fragments.IssuesFragment;
 import com.example.localheroapp.fragments.ProfileFragment;
 import com.example.localheroapp.fragments.ReportIssueFragment;
 import com.example.localheroapp.models.User;
+<<<<<<< HEAD
+=======
+import com.example.localheroapp.utils.SampleDataSeeder;
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,6 +63,13 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             loadFragment(new HomeFragment());
         }
+<<<<<<< HEAD
+=======
+        
+        // Seed sample data for testing
+        // TODO: Remove this in production or add proper checks
+        seedSampleData();
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
     }
 
     private void checkAuthentication() {
@@ -104,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupFloatingActionButton() {
         reportIssueFab.setOnClickListener(v -> {
+<<<<<<< HEAD
             // Open report issue fragment
             loadFragment(new ReportIssueFragment());
             
@@ -115,6 +127,32 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+=======
+            // Get current fragment to determine action
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
+            
+            if (currentFragment instanceof ChatsFragment) {
+                // In chats fragment - create new chat
+                createNewChat();
+            } else {
+                // Check user role before allowing issue reporting
+                if (currentUser != null && (currentUser.isCouncillor() || currentUser.isMunicipalityStaff())) {
+                    // Councillors and municipality staff cannot report issues
+                    android.widget.Toast.makeText(this, "Only community members can report issues", android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                
+                // Community members can report issues
+                loadFragment(new ReportIssueFragment());
+                
+                // Update bottom navigation to show no selection
+                bottomNavigationView.getMenu().findItem(R.id.nav_home).setChecked(false);
+                bottomNavigationView.getMenu().findItem(R.id.nav_issues).setChecked(false);
+                bottomNavigationView.getMenu().findItem(R.id.nav_chats).setChecked(false);
+                bottomNavigationView.getMenu().findItem(R.id.nav_profile).setChecked(false);
+            }
+        });
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
     }
 
     private void loadFragment(Fragment fragment) {
@@ -155,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser != null) {
             // Update UI based on user role
             if (currentUser.isCouncillor()) {
+<<<<<<< HEAD
                 // Councillor specific UI updates
                 reportIssueFab.setVisibility(View.GONE); // Councillors don't report issues
             } else if (currentUser.isMunicipalityStaff()) {
@@ -162,6 +201,15 @@ public class MainActivity extends AppCompatActivity {
                 reportIssueFab.setVisibility(View.GONE); // Staff don't report issues
             } else {
                 // Community member UI updates
+=======
+                // Councillors can view issues and participate in chats
+                reportIssueFab.setVisibility(View.VISIBLE); // Show FAB for chats
+            } else if (currentUser.isMunicipalityStaff()) {
+                // Municipality staff can view issues and change status
+                reportIssueFab.setVisibility(View.GONE); // No reporting or chatting
+            } else {
+                // Community members can report issues and chat
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
                 reportIssueFab.setVisibility(View.VISIBLE);
             }
         }
@@ -170,6 +218,28 @@ public class MainActivity extends AppCompatActivity {
     public User getCurrentUser() {
         return currentUser;
     }
+<<<<<<< HEAD
+=======
+    
+    private void createNewChat() {
+        // Get current fragment and delegate to it if it's ChatsFragment
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
+        
+        if (currentFragment instanceof ChatsFragment) {
+            ((ChatsFragment) currentFragment).createNewChat();
+        } else {
+            android.widget.Toast.makeText(this, "Cannot create chat from this screen", android.widget.Toast.LENGTH_SHORT).show();
+        }
+    }
+    
+    private void seedSampleData() {
+        // Only seed data once per app launch to avoid duplicates
+        // In a real app, you'd have more sophisticated checks
+        SampleDataSeeder seeder = new SampleDataSeeder();
+        seeder.seedAllData();
+        seeder.seedSampleUsers();
+    }
+>>>>>>> 128b1afa5f0dc11ba4f41a1f80f23565a984143b
 
     @Override
     public void onBackPressed() {
